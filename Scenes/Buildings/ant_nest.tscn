@@ -1,0 +1,122 @@
+[gd_scene load_steps=12 format=4 uid="uid://dk0o1j2mcoe1t"]
+
+[ext_resource type="Script" uid="uid://bxos4v4opvpan" path="res://Scripts/ant_nest.gd" id="1_ksm8q"]
+[ext_resource type="PackedScene" uid="uid://e1e5dht760nm" path="res://Scenes/Buildings/building.tscn" id="1_mi1kp"]
+[ext_resource type="Texture2D" uid="uid://dfrk4plxecwrj" path="res://Assets/Entities/settler.png" id="3_akinb"]
+[ext_resource type="Texture2D" uid="uid://x0fxivja6x41" path="res://Assets/Objects/minus.png" id="3_lb2rh"]
+[ext_resource type="Script" uid="uid://13n3a26stk4s" path="res://Scripts/minus.gd" id="4_7h3gq"]
+[ext_resource type="LabelSettings" uid="uid://cj3ioqywagb3n" path="res://Themes/label.tres" id="4_im22q"]
+[ext_resource type="Texture2D" uid="uid://cbvq1l6wh7vhh" path="res://Assets/Objects/exit.png" id="5_qyd2r"]
+[ext_resource type="Script" uid="uid://bjr5g8senjqrg" path="res://Scripts/exit.gd" id="6_tjmky"]
+[ext_resource type="Texture2D" uid="uid://dvrcqk2st8fam" path="res://Assets/Objects/plus.png" id="6_w01rm"]
+[ext_resource type="Script" uid="uid://dvxoak3bk8kk6" path="res://Scripts/plus.gd" id="10_4ixnd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mi1kp"]
+size = Vector2(48, 48)
+
+[node name="AntNest" instance=ExtResource("1_mi1kp")]
+input_pickable = true
+script = ExtResource("1_ksm8q")
+settlers_food_cost = 50.0
+max_settlers = 4
+tilemap_size = Vector2(3, 3)
+
+[node name="Structure" parent="." index="0"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAFAAEAAAABAAAAAAAFAAEAAAACAAAAAAAFAAEAAAAAAAEAAAAFAAAAAAABAAEAAAAFAAAAAAACAAEAAAAFAAAAAAABAAIAAAAGAAAAAAAAAAIAAAAHAAAAAAACAAIAAAAHAAAAAAA=")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_mi1kp")
+
+[node name="UIContainer" type="HBoxContainer" parent="UI" index="0"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -33.0
+offset_right = 57.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 0
+alignment = 1
+
+[node name="Minus" type="TextureButton" parent="UI/UIContainer" index="0"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_lb2rh")
+script = ExtResource("4_7h3gq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/UIContainer" index="1"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/UIContainer/VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="TotalFood" type="Label" parent="UI/UIContainer/VBoxContainer/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(55, 0)
+layout_mode = 2
+mouse_filter = 0
+text = "Total: 0 Food"
+label_settings = ExtResource("4_im22q")
+
+[node name="Exit" type="TextureButton" parent="UI/UIContainer/VBoxContainer/HBoxContainer" index="1" node_paths=PackedStringArray("node")]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("5_qyd2r")
+script = ExtResource("6_tjmky")
+node = NodePath("../../../..")
+
+[node name="TotalSettlers" type="Label" parent="UI/UIContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 0
+text = "0/4"
+label_settings = ExtResource("4_im22q")
+
+[node name="TextureRect" type="TextureRect" parent="UI/UIContainer/VBoxContainer" index="2"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 0
+texture = ExtResource("3_akinb")
+stretch_mode = 2
+
+[node name="Plus" type="TextureButton" parent="UI/UIContainer" index="2"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6_w01rm")
+script = ExtResource("10_4ixnd")
+
+[node name="SpawnContainer" type="Node2D" parent="." index="3"]
+
+[node name="Spawn1" type="Marker2D" parent="SpawnContainer" index="0"]
+position = Vector2(-8, 58)
+
+[node name="Spawn2" type="Marker2D" parent="SpawnContainer" index="1"]
+position = Vector2(8, 58)
+
+[node name="Spawn3" type="Marker2D" parent="SpawnContainer" index="2"]
+position = Vector2(24, 58)
+
+[node name="Spawn4" type="Marker2D" parent="SpawnContainer" index="3"]
+position = Vector2(40, 58)
+
+[node name="Panel" parent="." index="4"]
+offset_left = -13.0
+offset_top = -14.0
+offset_right = 45.0
+offset_bottom = 46.0
+
+[connection signal="mouse_entered" from="UI/UIContainer/Minus" to="UI/UIContainer/Minus" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UI/UIContainer/Minus" to="UI/UIContainer/Minus" method="_on_mouse_exited"]
+[connection signal="pressed" from="UI/UIContainer/Minus" to="." method="_on_minus_pressed"]
+[connection signal="mouse_entered" from="UI/UIContainer/VBoxContainer/HBoxContainer/Exit" to="UI/UIContainer/VBoxContainer/HBoxContainer/Exit" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UI/UIContainer/VBoxContainer/HBoxContainer/Exit" to="UI/UIContainer/VBoxContainer/HBoxContainer/Exit" method="_on_mouse_exited"]
+[connection signal="pressed" from="UI/UIContainer/VBoxContainer/HBoxContainer/Exit" to="UI/UIContainer/VBoxContainer/HBoxContainer/Exit" method="_on_pressed"]
+[connection signal="mouse_entered" from="UI/UIContainer/Plus" to="UI/UIContainer/Plus" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UI/UIContainer/Plus" to="UI/UIContainer/Plus" method="_on_mouse_exited"]
+[connection signal="pressed" from="UI/UIContainer/Plus" to="." method="_on_plus_pressed"]

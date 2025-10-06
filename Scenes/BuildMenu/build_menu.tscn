@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://dadtrdt1gamab"]
+
+[ext_resource type="Script" uid="uid://d3wq4aoak6fhp" path="res://Scripts/build_menu.gd" id="1_8d4ed"]
+[ext_resource type="Texture2D" uid="uid://d0ceo2fmwmsnf" path="res://Assets/Objects/hammer.png" id="1_wumsn"]
+[ext_resource type="Theme" uid="uid://cf8tjvui5fa17" path="res://Themes/button_theme.tres" id="3_toklt"]
+
+[node name="BuildMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+script = ExtResource("1_8d4ed")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -40.0
+offset_right = 112.0
+grow_vertical = 0
+
+[node name="BuildButton" type="TextureButton" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("1_wumsn")
+
+[node name="BuildsContainer" type="HBoxContainer" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="NestButton" type="Button" parent="HBoxContainer/BuildsContainer"]
+custom_minimum_size = Vector2(70, 15)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("3_toklt")
+text = "NEST(100 WOOD)"
+
+[node name="FarmButton" type="Button" parent="HBoxContainer/BuildsContainer"]
+custom_minimum_size = Vector2(70, 15)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("3_toklt")
+text = "FARM(200 WOOD)"
+
+[connection signal="mouse_entered" from="HBoxContainer/BuildButton" to="." method="_on_build_button_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/BuildButton" to="." method="_on_build_button_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/BuildButton" to="." method="_on_build_button_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/BuildsContainer/NestButton" to="." method="_on_nest_button_mouse_entered"]
+[connection signal="pressed" from="HBoxContainer/BuildsContainer/NestButton" to="." method="_on_nest_button_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/BuildsContainer/FarmButton" to="." method="_on_farm_button_mouse_entered"]
+[connection signal="pressed" from="HBoxContainer/BuildsContainer/FarmButton" to="." method="_on_farm_button_pressed"]

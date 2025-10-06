@@ -1,0 +1,116 @@
+[gd_scene load_steps=11 format=3 uid="uid://b7w8biskjoi7n"]
+
+[ext_resource type="FontFile" uid="uid://cns7smpfpugs7" path="res://Fonts/Kenney Mini Square Mono.ttf" id="1_forwa"]
+[ext_resource type="Script" uid="uid://ctyavx4b54ntj" path="res://Scripts/main_menu.gd" id="1_ndra0"]
+[ext_resource type="LabelSettings" uid="uid://cj3ioqywagb3n" path="res://Themes/label.tres" id="2_h2e4v"]
+[ext_resource type="Shader" uid="uid://d0ayfrvxaktxi" path="res://Scripts/crt.gdshader" id="4_7gkfm"]
+[ext_resource type="AudioStream" uid="uid://wlkfro1fwuw5" path="res://Assets/Sounds/blossom.wav" id="4_rgnbq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_forwa"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2e4v"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.945098, 0.909804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndra0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.945098, 0.909804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rgnbq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(1, 0.945098, 0.909804, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gsnsu"]
+shader = ExtResource("4_7gkfm")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.1
+shader_parameter/grille_opacity = 0.1
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 2.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.0
+shader_parameter/noise_opacity = 0.1
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 4.75e-08
+shader_parameter/brightness = 1.0
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.25
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_ndra0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0, 0.529412, 0.317647, 1)
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -22.0
+offset_right = 70.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(1, 0.945098, 0.909804, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.945098, 0.909804, 1)
+theme_override_colors/font_hover_color = Color(1, 0.945098, 0.909804, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.944685, 0.909123, 1)
+theme_override_colors/font_focus_color = Color(1, 0.945098, 0.909804, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.945098, 0.909804, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_forwa")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxFlat_forwa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h2e4v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ndra0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rgnbq")
+text = "PLAY"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 14.0
+offset_top = 11.0
+offset_right = 100.0
+offset_bottom = 52.0
+text = "Created by canarybird
+font by kenney
+music by chaja makes music
+crt shader by pend00"
+label_settings = ExtResource("2_h2e4v")
+
+[node name="CrtShader" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_gsnsu")
+offset_right = 320.0
+offset_bottom = 180.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_rgnbq")
+volume_db = -25.0
+autoplay = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

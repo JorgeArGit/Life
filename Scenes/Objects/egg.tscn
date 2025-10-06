@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://b2g12r8674by5"]
+
+[ext_resource type="PackedScene" uid="uid://b0261llg0bmny" path="res://Scenes/Objects/map_resource_scene.tscn" id="1_h8yba"]
+[ext_resource type="Script" uid="uid://b2dqcc7mm2kbu" path="res://Scripts/map_resource_stats.gd" id="2_jlgpx"]
+[ext_resource type="Texture2D" uid="uid://86uv0xykqkod" path="res://Assets/Objects/egg.png" id="3_mk7ib"]
+
+[sub_resource type="Resource" id="Resource_24i6t"]
+resource_local_to_scene = true
+script = ExtResource("2_jlgpx")
+resource_amount = 10000.0
+amount_per_second = 10.0
+type = 2
+metadata/_custom_type_script = "uid://b2dqcc7mm2kbu"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v40pc"]
+radius = 32.0624
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e20yp"]
+radius = 62.0
+
+[node name="Egg" instance=ExtResource("1_h8yba")]
+position = Vector2(51, 51)
+stats = SubResource("Resource_24i6t")
+
+[node name="Body" parent="." index="0"]
+texture = ExtResource("3_mk7ib")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_v40pc")
+
+[node name="CollisionShape2D" parent="SettlerDetection" index="0"]
+shape = SubResource("CircleShape2D_e20yp")
+
+[node name="Panel" parent="." index="3"]
+offset_left = -63.0
+offset_top = -63.0
+offset_right = 63.0
+offset_bottom = 63.0
+
+[node name="TextureProgressBar" parent="." index="6"]
+offset_left = -24.0
+offset_top = -64.0
+offset_right = 16.0
+offset_bottom = -24.0
+scale = Vector2(3, 3)

@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://b542rj2ptp1i3"]
+
+[ext_resource type="PackedScene" uid="uid://b0261llg0bmny" path="res://Scenes/Objects/map_resource_scene.tscn" id="1_wqnlr"]
+[ext_resource type="Script" uid="uid://b2dqcc7mm2kbu" path="res://Scripts/map_resource_stats.gd" id="2_bc0r3"]
+[ext_resource type="Texture2D" uid="uid://bl6u2b320eol6" path="res://Assets/Objects/berry_bush.png" id="2_npkry"]
+
+[sub_resource type="Resource" id="Resource_3r6t1"]
+resource_local_to_scene = true
+script = ExtResource("2_bc0r3")
+resource_amount = 50.0
+amount_per_second = 5.0
+type = 1
+metadata/_custom_type_script = "uid://b2dqcc7mm2kbu"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wqnlr"]
+radius = 5.09902
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_npkry"]
+radius = 19.0263
+
+[node name="BerryBush" instance=ExtResource("1_wqnlr")]
+stats = SubResource("Resource_3r6t1")
+
+[node name="Body" parent="." index="0"]
+texture = ExtResource("2_npkry")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_wqnlr")
+
+[node name="CollisionShape2D" parent="SettlerDetection" index="0"]
+shape = SubResource("CircleShape2D_npkry")
+
+[node name="TextureProgressBar" parent="." index="6"]
+offset_left = -8.0
+offset_top = -15.0
+offset_right = 32.0
+offset_bottom = 25.0

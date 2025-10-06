@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MapResourceStats" load_steps=2 format=3 uid="uid://biey8weibautj"]
+
+[ext_resource type="Script" uid="uid://b2dqcc7mm2kbu" path="res://Scripts/map_resource_stats.gd" id="1_3bdx6"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_3bdx6")
+resource_amount = 50.0
+amount_per_second = 10.0
+type = 1
+metadata/_custom_type_script = "uid://b2dqcc7mm2kbu"

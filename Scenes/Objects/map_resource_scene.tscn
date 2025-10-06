@@ -1,0 +1,130 @@
+[gd_scene load_steps=11 format=3 uid="uid://b0261llg0bmny"]
+
+[ext_resource type="Script" uid="uid://ba5rddqd6bs8w" path="res://Scripts/map_resource.gd" id="1_ebggc"]
+[ext_resource type="Resource" uid="uid://biey8weibautj" path="res://Resources/berry_bush.tres" id="2_3ecig"]
+[ext_resource type="StyleBox" uid="uid://c16fmery45hpt" path="res://Themes/panel.tres" id="3_fknal"]
+[ext_resource type="AudioStream" uid="uid://bap36yqc5dw8n" path="res://Assets/Sounds/collecting_sound.wav" id="4_poww7"]
+[ext_resource type="Texture2D" uid="uid://dxc3l7qnb1ij1" path="res://Assets/Objects/progress_bar_two.png" id="5_j6afi"]
+[ext_resource type="Texture2D" uid="uid://blgbwth1dsflw" path="res://Assets/Objects/progress_bar_one.png" id="6_7wr0a"]
+
+[sub_resource type="Animation" id="Animation_poww7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fknal"]
+resource_name = "exploiting"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.174533, -0.174533, 0.174533, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_lbx4v"]
+resource_name = "falling"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5708]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(10, 6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_poww7"]
+_data = {
+&"RESET": SubResource("Animation_poww7"),
+&"exploiting": SubResource("Animation_fknal"),
+&"falling": SubResource("Animation_lbx4v")
+}
+
+[node name="MapResourceScene" type="StaticBody2D"]
+script = ExtResource("1_ebggc")
+stats = ExtResource("2_3ecig")
+metadata/_custom_type_script = "uid://ba5rddqd6bs8w"
+
+[node name="Body" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+
+[node name="SettlerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SettlerDetection"]
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("3_fknal")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_poww7")
+}
+
+[node name="SfxPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_poww7")
+max_distance = 200.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture_under = ExtResource("5_j6afi")
+texture_progress = ExtResource("6_7wr0a")
+
+[connection signal="body_entered" from="SettlerDetection" to="." method="_on_settler_detection_body_entered"]
+[connection signal="mouse_entered" from="SettlerDetection" to="." method="_on_settler_detection_mouse_entered"]
+[connection signal="mouse_exited" from="SettlerDetection" to="." method="_on_settler_detection_mouse_exited"]

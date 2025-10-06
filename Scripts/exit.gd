@@ -1,0 +1,13 @@
+extends TextureButton
+class_name ExitButton
+
+@export var node: Node
+
+func _on_pressed() -> void:
+	node.visible = false
+
+func _on_mouse_entered() -> void:
+	scale = Vector2(1.1, 1.1)
+
+func _on_mouse_exited() -> void:
+	scale = Vector2(1.0, 1.0)

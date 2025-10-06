@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=4 uid="uid://do4m70iw18bft"]
+
+[ext_resource type="PackedScene" uid="uid://e1e5dht760nm" path="res://Scenes/Buildings/building.tscn" id="1_74opf"]
+[ext_resource type="Script" uid="uid://daiapqvcb3hu1" path="res://Scripts/farm.gd" id="2_hsaln"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_74opf"]
+size = Vector2(96, 48)
+
+[node name="Farm" instance=ExtResource("1_74opf")]
+script = ExtResource("2_hsaln")
+tilemap_size = Vector2(6, 3)
+
+[node name="Structure" parent="." index="0"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAFAAEAAAABAAAAAAAFAAEAAAACAAAAAAAFAAEAAAAAAAEAAAAFAAAAAAABAAEAAAAFAAAAAAACAAEAAAAFAAAAAAABAAIAAAAGAAAAAAACAAIAAAAHAAAAAAAAAAIAAAAHAAAAAAADAAIAAAAGAAEAAAADAAEAAAAGAAEAAAADAAAAAAAGAAEAAAAEAAIAAAAGAAEAAAAEAAEAAAAGAAEAAAAEAAAAAAAGAAEAAAAFAAIAAAAGAAEAAAAFAAEAAAAGAAEAAAAFAAAAAAAGAAEAAAA=")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(40, 16)
+shape = SubResource("RectangleShape2D_74opf")

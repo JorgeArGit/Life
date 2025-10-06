@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://e1e5dht760nm"]
+
+[ext_resource type="Script" uid="uid://t3vvnkdq4tcs" path="res://Scripts/building.gd" id="1_b1imv"]
+[ext_resource type="Texture2D" uid="uid://bfak2ednqqyxl" path="res://Assets/TileMaps/tilemap.png" id="2_4jv2a"]
+[ext_resource type="StyleBox" uid="uid://c16fmery45hpt" path="res://Themes/panel.tres" id="3_ejtej"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ksm8q"]
+texture = ExtResource("2_4jv2a")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+7:0/0 = 0
+6:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_lb2rh"]
+sources/0 = SubResource("TileSetAtlasSource_ksm8q")
+
+[node name="Building" type="StaticBody2D"]
+z_index = 1
+script = ExtResource("1_b1imv")
+
+[node name="Structure" type="TileMapLayer" parent="."]
+position = Vector2(-8, -8)
+tile_set = SubResource("TileSet_lb2rh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+
+[node name="UI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("3_ejtej")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

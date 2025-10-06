@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctlptqtgd6a0g"]
+
+[ext_resource type="Texture2D" uid="uid://d3btpmy4w8y7c" path="res://Assets/Objects/tree.png" id="1_b0kcf"]
+[ext_resource type="PackedScene" uid="uid://b0261llg0bmny" path="res://Scenes/Objects/map_resource_scene.tscn" id="1_ebggc"]
+[ext_resource type="Resource" uid="uid://ca3na2kq1gdrb" path="res://Resources/tree_stats.tres" id="2_s0hs7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ebggc"]
+radius = 4.0
+height = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s0hs7"]
+radius = 24.0
+
+[node name="Tree" instance=ExtResource("1_ebggc")]
+stats = ExtResource("2_s0hs7")
+
+[node name="Body" parent="." index="0"]
+texture = ExtResource("1_b0kcf")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_ebggc")
+
+[node name="CollisionShape2D" parent="SettlerDetection" index="0"]
+shape = SubResource("CircleShape2D_s0hs7")
+
+[node name="TextureProgressBar" parent="." index="6"]
+offset_left = -8.0
+offset_top = -15.0
+offset_right = 32.0
+offset_bottom = 25.0
